@@ -1,4 +1,5 @@
-import styled from 'styled-components'
+import React from 'react';
+import styled from 'styled-components';
 
 const Opcao = styled.li`
     font-size: 16px;
@@ -21,10 +22,12 @@ const textoOpcoes = ['CATEGORIAS', 'FAVORITOS', 'MINHA ESTANTE']
 function OpcoesHeader() {
     return (
         <Opcoes>
-            { textoOpcoes.map( (texto) => (
-                <Opcao><p>{texto}</p></Opcao>
-            ) ) }
-      </Opcoes>
+            {textoOpcoes.map((texto) => (
+                <Opcao key={texto}>
+                    <p>{texto}</p>
+                </Opcao>
+            ))}
+        </Opcoes>
     )
 }
 

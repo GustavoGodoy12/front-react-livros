@@ -1,3 +1,4 @@
+
 import Input from '../Input'
 import styled from 'styled-components'
 import { useState } from 'react'
@@ -36,9 +37,7 @@ const Resultado = styled.div`
         width: 200px;
     }
 
-    img {
-        width: 100px;
-    }
+    /* Removido a estilização para img */
 
     &:hover {
         border: 1px solid white;
@@ -61,8 +60,8 @@ function Pesquisa() {
                 }}
             />
             { livrosPesquisados.map( livro => (
-                <Resultado>
-                    <img src={livro.src}/>
+                <Resultado key={livro.id}>
+                    {}
                     <p>{livro.nome}</p>
                 </Resultado>
             ) ) }
