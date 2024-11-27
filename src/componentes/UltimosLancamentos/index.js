@@ -3,6 +3,7 @@ import { BooksContext } from '../../context/BooksContext';
 import { Titulo } from '../Titulo';
 import styled from 'styled-components';
 import { CartContext } from '../../context/CartContext';
+import { useNavigate } from 'react-router-dom'; // Importar useNavigate para navegação
 
 const UltimosLancamentosContainer = styled.section`
     background-color: #EBECEE;
@@ -50,7 +51,7 @@ const LivroPreco = styled.p`
 `;
 
 const Botao = styled.button`
-    background-color: ${props => props.remover ? '#FF4C4C' : '#EB9B00'};
+    background-color: ${props => props.remover ? '#FF4C4C' : props.atualizar ? '#00A8E8' : '#EB9B00'};
     color: #FFF;
     padding: 10px 20px;
     font-size: 14px;
@@ -61,13 +62,26 @@ const Botao = styled.button`
     width: 100%;
 
     &:hover {
-        background-color: ${props => props.remover ? '#d83a3a' : '#d88e00'};
+        background-color: ${props => 
+            props.remover ? '#d83a3a' : 
+            props.atualizar ? '#008dc7' : '#d88e00'};
     }
 `;
 
 function UltimosLancamentos() {
-    const { books } = useContext(BooksContext);
+    const { books, deleteBook } = useContext(BooksContext);
     const { cartItems, addToCart, removeFromCart } = useContext(CartContext);
+    const navigate = useNavigate();
+
+    const handleDelete = (id) => {
+        if (window.confirm('Tem certeza que deseja deletar este livro?')) {
+            deleteBook(id);
+        }
+    };
+
+    const handleUpdate = (id) => {
+        navigate(`/editar-livro/${id}`);
+    };
 
     return (
         <UltimosLancamentosContainer>
@@ -92,6 +106,14 @@ function UltimosLancamentos() {
                                 Remover do Carrinho
                             </Botao>
                         )}
+                        {/* Botão de Atualizar */}
+                        <Botao atualizar onClick={() => handleUpdate(livro.id)}>
+                            Atualizar
+                        </Botao>
+                        {/* Botão de Deletar */}
+                        <Botao remover onClick={() => handleDelete(livro.id)}>
+                            Deletar
+                        </Botao>
                     </LivroCard>
                 ))}
             </NovosLivrosContainer>

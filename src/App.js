@@ -9,6 +9,7 @@ import Auth from './componentes/Auth/Auth';
 import TesteComponente from './componentes/TesteComponente'; 
 import { CartProvider } from './context/CartContext';
 import { BooksProvider } from './context/BooksContext';
+import EditarLivro from './componentes/EditarLivro.js';
 import styled from 'styled-components';
 
 const AppContainer = styled.div`
@@ -30,6 +31,7 @@ function App() {
               <Route path="/carrinho" element={<Carrinho />} />
               <Route path="/adicionar-livro" element={<AdicionarLivro />} />
               <Route path="/teste" element={<TesteComponente />} /> {}
+              <Route path="/editar-livro/:id" element={<EditarLivro />} />
             </Routes>
           </AppContainer>
         </CartProvider>
