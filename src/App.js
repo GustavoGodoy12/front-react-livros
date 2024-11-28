@@ -1,7 +1,7 @@
 // src/App.js
 
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Header from './componentes/Header';
 import Pesquisa from './componentes/Pesquisa';
 import UltimosLancamentos from './componentes/UltimosLancamentos';
@@ -12,7 +12,9 @@ import TesteComponente from './componentes/TesteComponente';
 import { CartProvider } from './context/CartContext';
 import { BooksProvider } from './context/BooksContext';
 import EditarLivro from './componentes/EditarLivro.js';
+import { AuthProvider, AuthContext } from './context/AuthContext'; // Importar AuthContext
 import styled from 'styled-components';
+import { useContext } from 'react';
 
 const AppContainer = styled.div`
     width: 100vw;
@@ -20,24 +22,42 @@ const AppContainer = styled.div`
     background-image: linear-gradient(90deg,#002F52 35%,#326589 165%);
 `;
 
+// Componente para Proteger Rotas Privadas
+const PrivateRoute = ({ children }) => {
+    const { isAuthenticated } = useContext(AuthContext);
+    return isAuthenticated ? children : <Navigate to="/cadastro" />;
+};
+
 function App() {
   return (
     <Router>
-      <BooksProvider>
-        <CartProvider>
-          <AppContainer>
-            <Header />
-            <Routes>
-              <Route path="/" element={<><Pesquisa /><UltimosLancamentos /></>} />
-              <Route path="/cadastro" element={<Auth />} />
-              <Route path="/carrinho" element={<Carrinho />} />
-              <Route path="/adicionar-livro" element={<AdicionarLivro />} />
-              <Route path="/teste" element={<TesteComponente />} />
-              <Route path="/editar-livro/:id" element={<EditarLivro />} />
-            </Routes>
-          </AppContainer>
-        </CartProvider>
-      </BooksProvider>
+      <AuthProvider> {/* Envolver com AuthProvider */}
+        <BooksProvider>
+          <CartProvider>
+            <AppContainer>
+              <Header />
+              <Routes>
+                <Route path="/" element={<><Pesquisa /><UltimosLancamentos /></>} />
+                <Route path="/cadastro" element={<Auth />} />
+                <Route path="/carrinho" element={<Carrinho />} />
+                {/* Proteger a rota de adicionar livro */}
+                <Route path="/adicionar-livro" element={
+                  <PrivateRoute>
+                    <AdicionarLivro />
+                  </PrivateRoute>
+                } />
+                <Route path="/teste" element={<TesteComponente />} />
+                {/* Proteger a rota de editar livro */}
+                <Route path="/editar-livro/:id" element={
+                  <PrivateRoute>
+                    <EditarLivro />
+                  </PrivateRoute>
+                } />
+              </Routes>
+            </AppContainer>
+          </CartProvider>
+        </BooksProvider>
+      </AuthProvider>
     </Router>
   );
 }
