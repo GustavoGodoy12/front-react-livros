@@ -1,3 +1,5 @@
+// componentes/Carrinho/index.js
+
 import React, { useContext, useState } from 'react';
 import styled from 'styled-components';
 import { CartContext } from '../../context/CartContext';
@@ -116,7 +118,6 @@ function Carrinho() {
         pix: ''
     });
     const [mensagem, setMensagem] = useState('');
-    const [userId] = useState(1);
 
     const valorTotal = cartItems.reduce((acc, item) => acc + item.total, 0);
 
@@ -134,7 +135,6 @@ function Carrinho() {
                     return;
                 }
                 const response = await api.post('/payment/credit-card', {
-                    userId,
                     valorTotal,
                     numeroCartao,
                     cvv,
@@ -151,7 +151,6 @@ function Carrinho() {
                     return;
                 }
                 const response = await api.post('/payment/pix', {
-                    userId,
                     valorTotal,
                     pix
                 });

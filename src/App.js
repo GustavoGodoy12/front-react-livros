@@ -1,3 +1,5 @@
+// src/App.js
+
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Header from './componentes/Header';
@@ -27,10 +29,10 @@ function App() {
             <Header />
             <Routes>
               <Route path="/" element={<><Pesquisa /><UltimosLancamentos /></>} />
-              <Route path="/cadastro" element={<Auth />} /> {}
+              <Route path="/cadastro" element={<Auth />} />
               <Route path="/carrinho" element={<Carrinho />} />
               <Route path="/adicionar-livro" element={<AdicionarLivro />} />
-              <Route path="/teste" element={<TesteComponente />} /> {}
+              <Route path="/teste" element={<TesteComponente />} />
               <Route path="/editar-livro/:id" element={<EditarLivro />} />
             </Routes>
           </AppContainer>

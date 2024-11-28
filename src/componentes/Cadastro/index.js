@@ -1,3 +1,5 @@
+// componentes/Cadastro/index.js
+
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import api from '../../api';
@@ -65,7 +67,8 @@ function Cadastro() {
     const navigate = useNavigate();
     const [form, setForm] = useState({
         name: '',
-        email: ''
+        email: '',
+        password: ''
     });
     const [mensagem, setMensagem] = useState('');
     const [error, setError] = useState(false);
@@ -76,20 +79,22 @@ function Cadastro() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const { name, email } = form;
+        const { name, email, password } = form;
 
-        if (name && email) {
+        if (name && email && password) {
             try {
-                const response = await api.post('/users', {
+                const response = await api.post('/users/register', {
                     name,
-                    email
+                    email,
+                    password
                 });
                 if (response.status === 201) {
                     setMensagem('Cadastro realizado com sucesso!');
                     setError(false);
                     setForm({
                         name: '',
-                        email: ''
+                        email: '',
+                        password: ''
                     });
                     setTimeout(() => {
                         navigate('/');
@@ -97,7 +102,11 @@ function Cadastro() {
                 }
             } catch (error) {
                 console.error('Erro ao cadastrar usuário:', error);
-                setMensagem('Erro ao cadastrar usuário.');
+                if (error.response && error.response.data && error.response.data.message) {
+                    setMensagem(error.response.data.message);
+                } else {
+                    setMensagem('Erro ao cadastrar usuário.');
+                }
                 setError(true);
             }
         } else {
@@ -124,6 +133,14 @@ function Cadastro() {
                     value={form.email}
                     onChange={handleChange}
                     placeholder="Email"
+                    required
+                />
+                <Input
+                    type="password"
+                    name="password"
+                    value={form.password}
+                    onChange={handleChange}
+                    placeholder="Senha"
                     required
                 />
                 <BotaoCadastrar type="submit">Cadastrar</BotaoCadastrar>
