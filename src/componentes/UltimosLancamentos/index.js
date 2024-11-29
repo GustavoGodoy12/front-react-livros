@@ -3,7 +3,7 @@ import { BooksContext } from '../../context/BooksContext';
 import { Titulo } from '../Titulo';
 import styled from 'styled-components';
 import { CartContext } from '../../context/CartContext';
-import { useNavigate } from 'react-router-dom'; // Importar useNavigate para navegação
+import { useNavigate } from 'react-router-dom'; 
 
 const UltimosLancamentosContainer = styled.section`
     background-color: #EBECEE;
@@ -106,11 +106,11 @@ function UltimosLancamentos() {
                                 Remover do Carrinho
                             </Botao>
                         )}
-                        {/* Botão de Atualizar */}
+                        {/* att */}
                         <Botao atualizar onClick={() => handleUpdate(livro.id)}>
                             Atualizar
                         </Botao>
-                        {/* Botão de Deletar */}
+                        {/* del */}
                         <Botao remover onClick={() => handleDelete(livro.id)}>
                             Deletar
                         </Botao>

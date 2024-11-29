@@ -1,5 +1,3 @@
-// componentes/Auth/Auth.js
-
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import api from '../../api';

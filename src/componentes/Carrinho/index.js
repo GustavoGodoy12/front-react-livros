@@ -1,5 +1,3 @@
-// componentes/Carrinho/index.js
-
 import React, { useContext, useState } from 'react';
 import styled from 'styled-components';
 import { CartContext } from '../../context/CartContext';

@@ -1,9 +1,7 @@
-// componentes/AdicionarLivro/index.js
-
 import React, { useState, useContext } from 'react';
 import styled from 'styled-components';
 import { BooksContext } from '../../context/BooksContext';
-import { AuthContext } from '../../context/AuthContext'; // Importar AuthContext
+import { AuthContext } from '../../context/AuthContext'; 
 import { useNavigate } from 'react-router-dom';
 
 const AdicionarLivroContainer = styled.div`
@@ -74,7 +72,7 @@ const Mensagem = styled.p`
 
 function AdicionarLivro() {
     const { addBook } = useContext(BooksContext);
-    const { isAuthenticated } = useContext(AuthContext); // Verificar autenticação
+    const { isAuthenticated } = useContext(AuthContext); // verify auth
     const navigate = useNavigate();
     const [form, setForm] = useState({
         nome: '',

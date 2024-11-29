@@ -1,6 +1,5 @@
-// context/BooksContext.js
 import React, { createContext, useState, useEffect } from 'react';
-import api from '../api'; // Certifique-se de que o caminho está correto
+import api from '../api'; 
 
 export const BooksContext = createContext();
 
@@ -13,7 +12,6 @@ export const BooksProvider = ({ children }) => {
         fetchBooks();
     }, []);
 
-    // Função para buscar todos os livros
     const fetchBooks = async () => {
         try {
             const response = await api.get('/products');
@@ -31,10 +29,8 @@ export const BooksProvider = ({ children }) => {
         }
     };
 
-    // Função para adicionar um livro
     const addBook = async (novoLivro) => {
         try {
-            // Garantir que 'preco' seja um número
             const livroToAdd = {
                 ...novoLivro,
                 preco: parseFloat(novoLivro.preco)
@@ -43,29 +39,27 @@ export const BooksProvider = ({ children }) => {
             setBooks([...books, response.data]);
         } catch (error) {
             console.error('Erro ao adicionar livro:', error);
-            throw error; // Propagar o erro para ser tratado no componente
+            throw error; 
         }
     };
 
-    // Função para deletar um livro
     const deleteBook = async (id) => {
         try {
             await api.delete(`/products/${id}`);
             setBooks(books.filter(book => book.id !== id));
         } catch (error) {
             console.error('Erro ao deletar livro:', error);
-            throw error; // Propagar o erro para ser tratado no componente
+            throw error; 
         }
     };
 
-    // Função para atualizar um livro
     const updateBook = async (updatedBook) => {
         try {
             const response = await api.put(`/products/${updatedBook.id}`, updatedBook);
             setBooks(books.map(book => book.id === updatedBook.id ? response.data : book));
         } catch (error) {
             console.error('Erro ao atualizar livro:', error);
-            throw error; // Propagar o erro para ser tratado no componente
+            throw error; 
         }
     };
 

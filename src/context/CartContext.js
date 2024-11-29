@@ -1,8 +1,6 @@
-// src/context/CartContext.js
-
 import React, { createContext, useState, useEffect } from 'react';
 import api from '../api';
-import { jwtDecode } from 'jwt-decode'; // Importação atualizada
+import { jwtDecode } from 'jwt-decode'; 
 
 export const CartContext = createContext();
 

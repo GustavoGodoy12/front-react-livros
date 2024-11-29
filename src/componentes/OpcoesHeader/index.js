@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom'; 
 
 const Opcao = styled.li`
     font-size: 16px;
@@ -17,14 +18,20 @@ const Opcoes = styled.ul`
     display: flex;
 `
 
-const textoOpcoes = ['CATEGORIAS', 'FAVORITOS', 'MINHA ESTANTE']
+const textoOpcoes = ['FORNECEDORES', 'FAVORITOS', 'MINHA ESTANTE']
 
 function OpcoesHeader() {
     return (
         <Opcoes>
             {textoOpcoes.map((texto) => (
                 <Opcao key={texto}>
-                    <p>{texto}</p>
+                    {texto === 'FORNECEDORES' ? (
+                        <Link to="/fornecedores" style={{ textDecoration: 'none', color: 'inherit' }}>
+                            <p>{texto}</p>
+                        </Link>
+                    ) : (
+                        <p>{texto}</p>
+                    )}
                 </Opcao>
             ))}
         </Opcoes>

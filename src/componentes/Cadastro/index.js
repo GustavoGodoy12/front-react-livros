@@ -1,5 +1,3 @@
-// componentes/Cadastro/index.js
-
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import api from '../../api';
